@@ -1,26 +1,45 @@
-import { Container, InputGroup, Form, Button, Row, Col } from 'react-bootstrap'
-import { useEffect } from 'react'
+import {
+   Container,
+   InputGroup,
+   Form,
+   Button,
+   Row,
+   Col,
+   Pagination,
+} from 'react-bootstrap'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchPosts } from '../asyncActions/posts'
 import Post from './Post'
-import { paginate } from '../actions/actions'
-//Filter by searching
+import { paginate, search } from '../actions/actions'
+import ModalBlock from './Modal'
 
-const onSearch = (e) => {
-   e.preventDefault()
-   alert()
-}
+// Number of pagination
+const items = [10, 20, 50]
+let active = 10
 
 // Parent Component
 const PostParent = () => {
    const post = useSelector((state) => state.posts)
    const dispatch = useDispatch()
+   const [value, setValue] = useState('')
+   const [modalShow, setModalShow] = useState(false)
 
    // Getting all of Posts from API
    useEffect(() => {
       dispatch(fetchPosts())
-      dispatch(paginate())
    }, [])
+
+   // Modal showing and closing
+   const onModal = () => setModalShow(true)
+   const onCloseModal = () => setModalShow(false)
+
+   //Filter by searching
+   const onSearch = (e) => {
+      e.preventDefault()
+      dispatch(search(value))
+      // if (value !== '' || value.trim())
+   }
 
    return (
       <Container>
@@ -28,8 +47,8 @@ const PostParent = () => {
             <InputGroup className="mb-3">
                <Form.Control
                   placeholder="Search posts"
-                  aria-label="Username"
-                  aria-describedby="basic-addon1"
+                  value={value}
+                  onChange={({ target }) => setValue(target.value)}
                />
                <Button variant="primary" type="submit">
                   Найти
@@ -47,11 +66,21 @@ const PostParent = () => {
                      lg={4}
                      className="mb-3 h-full"
                   >
-                     <Post post={post} />
+                     <Post onShowModal={onModal} post={post} />
                   </Col>
                ))}
             </Row>
+            <div className="d-flex justify-content-end">
+               <Pagination>
+                  {items.map((item, index) => (
+                     <Pagination.Item active={item === active} key={index}>
+                        {item}
+                     </Pagination.Item>
+                  ))}
+               </Pagination>
+            </div>
          </Container>
+         <ModalBlock modalShow={modalShow} onCloseModal={onCloseModal} />
       </Container>
    )
 }

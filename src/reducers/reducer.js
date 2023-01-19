@@ -1,19 +1,27 @@
-import { GET_DATA, PAGINATE_DATA } from '../actions/actionsTypes'
+import { GET_POST, PAGINATE_POST, SEARCH_POST } from '../actions/actionsTypes'
 
 // State of store
 const initialState = {
    posts: [],
-   paginate: 20,
+   paginate: 10,
 }
 
-export const reducer = (state = initialState, action) => {
-   switch (action.type) {
-      case GET_DATA:
+export const reducer = (state = initialState, { type, payload }) => {
+   switch (type) {
+      case GET_POST:
          return {
             ...state,
-            posts: [...state.posts, ...action.payload],
+            posts: [...state.posts, ...payload],
          }
-      case PAGINATE_DATA:
+      case SEARCH_POST:
+         return {
+            ...state,
+            posts: [...state.posts].filter(
+               ({ title }) =>
+                  title.toLowerCase().indexOf(payload.toLowerCase()) !== -1
+            ),
+         }
+      case PAGINATE_POST:
          return {
             ...state,
             posts: [...state.posts].filter(
