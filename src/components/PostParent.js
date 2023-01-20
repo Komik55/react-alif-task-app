@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchPosts } from '../asyncActions/posts'
 import Post from './Post'
-import { paginate, search } from '../actions/actions'
 import ModalBlock from './Modal'
 
 // Number of pagination
@@ -34,16 +33,9 @@ const PostParent = () => {
    const onModal = () => setModalShow(true)
    const onCloseModal = () => setModalShow(false)
 
-   //Filter by searching
-   const onSearch = (e) => {
-      e.preventDefault()
-      dispatch(search(value))
-      // if (value !== '' || value.trim())
-   }
-
    return (
       <Container>
-         <Form onSubmit={onSearch}>
+         <Form onSubmit={(e) => e.preventDefault()}>
             <InputGroup className="mb-3">
                <Form.Control
                   placeholder="Search posts"
@@ -57,18 +49,23 @@ const PostParent = () => {
          </Form>
          <Container>
             <Row>
-               {post.map((post, id) => (
-                  <Col
-                     key={id}
-                     xs={12}
-                     sm={12}
-                     md={4}
-                     lg={4}
-                     className="mb-3 h-full"
-                  >
-                     <Post onShowModal={onModal} post={post} />
-                  </Col>
-               ))}
+               {post
+                  .filter(
+                     ({ title }) =>
+                        title.toLowerCase().indexOf(value.toLowerCase()) !== -1
+                  )
+                  .map((post, id) => (
+                     <Col
+                        key={id}
+                        xs={12}
+                        sm={12}
+                        md={4}
+                        lg={4}
+                        className="mb-3 h-full"
+                     >
+                        <Post onShowModal={onModal} post={post} />
+                     </Col>
+                  ))}
             </Row>
             <div className="d-flex justify-content-end">
                <Pagination>
