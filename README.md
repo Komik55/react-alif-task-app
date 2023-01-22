@@ -15,7 +15,7 @@ In this project you can  get all of posts by fake api and filter it by search or
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![image](https://user-images.githubusercontent.com/90216538/213919572-9e712801-c243-428b-b6bf-57ec7b51d07f.png)
 
 
 ## Technologies Used ⚛️
