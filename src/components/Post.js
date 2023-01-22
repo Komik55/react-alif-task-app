@@ -1,20 +1,27 @@
-import { Card, Button } from 'react-bootstrap'
+import { Card, Button } from "react-bootstrap";
 
 const Post = ({ post, onShowModal }) => {
-   return (
-      <Card className="w-full hover:">
-         <Card.Img variant="top" src={post.url} />
-         <Card.Body>
-            <Card.Title>{'Zero'}</Card.Title>
-            <Card.Text>{post.title}</Card.Text>
-            <div className="d-flex jsutify-content-end w-full">
-               <Button variant="primary" onClick={onShowModal}>
-                  Подробнее
-               </Button>
-            </div>
-         </Card.Body>
-      </Card>
-   )
-}
+  return (
+    <Card className="w-full h-100 card  bg-dark">
+      <Card.Img variant="top" src={post.url} />
+      <Card.Body className="bg-dark">
+        <div className="d-flex justify-content-between text-light">
+          <Card.Title>Post {post.id}</Card.Title>
+          <Card.Title>{post.type}</Card.Title>
+        </div>
+        <Card.Text className="text-light">{post.title}</Card.Text>
+        <div className="d-flex justify-content-end w-full">
+          <Button
+            variant="outline-info "
+            className="text-light"
+            onClick={() => onShowModal(post)}
+          >
+            Подробнее
+          </Button>
+        </div>
+      </Card.Body>
+    </Card>
+  );
+};
 
-export default Post
+export default Post;

@@ -1,21 +1,35 @@
-import { GET_POST, PAGINATE_POST, SEARCH_POST } from './actionsTypes'
+import {
+  GET_POST,
+  LOADING,
+  SET_FILTER,
+  SET_FILTER_SORT,
+  SET_PAGINATE,
+} from "./actionsTypes";
 
 export const getPosts = (payload) => {
-   return {
-      type: GET_POST,
-      payload,
-   }
-}
+  return {
+    type: GET_POST,
+    payload,
+  };
+};
 
-export const paginate = () => {
-   return {
-      type: PAGINATE_POST,
-   }
-}
+export const setPaginate = (payload) => {
+  return {
+    type: SET_PAGINATE,
+    payload,
+  };
+};
 
-export const search = (payload) => {
-   return {
-      type: SEARCH_POST,
-      payload,
-   }
-}
+export const loading = (payload) => {
+  return {
+    type: LOADING,
+    payload,
+  };
+};
+
+export const filter = (payload) => {
+  return {
+    type: SET_FILTER,
+    payload,
+  };
+};

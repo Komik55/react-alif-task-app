@@ -1,15 +1,12 @@
-import './App.css'
-import Container from 'react-bootstrap/Container'
-import PostParent from './components/PostParent'
-
+import PostParent from "./components/PostParent";
+import NavbarBlock from "./components/Navbar";
 function App() {
-   return (
-      <div className="App">
-         <Container className="my-5">
-            <PostParent />
-         </Container>
-      </div>
-   )
+  return (
+    <div className="App">
+      <NavbarBlock />
+      <PostParent />
+    </div>
+  );
 }
 
-export default App
+export default App;
